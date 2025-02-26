@@ -141,4 +141,88 @@ The folder name for all output files will be displayed when building the project
 The output directory for each simulation (subfolder in the main output directory) is defined in `CapsasporaSimulation.hpp` and can be modified before building the project.
 
 ## 6. Visualisation of the results in Paraview
+
+Simulation results generated with Chaste can be visualized using [ParaView](https://www.paraview.org/), an open-source software for post-processing and visualisation. ParaView allows users to automate visualisation steps using Python scripts, which can be executed within ParaView’s Python Shell.
+
+This repository includes a `visualisation` folder containing the Python script `CapsasporaAnimation.py`, which was used to generate figures and supplementary movies for the manuscript. The script provides four visualisation methods:
+
+* `Capsaspora360(sim_folder, folder_save_video, save_anim)` visualises simulations on small square domains ($360 ~\mu m \times 360 ~\mu m$). Cells are coloured based on local FBS concentration.
+* `Capsaspora1080(sim_folder, folder_save_video, save_anim)` visualises simulations on large square domains ($1080 ~\mu m \times 1080 ~\mu m$). Cells are coloured based on local FBS concentration.
+* `Capsaspora360_CellDensity(sim_folder, folder_save_video, save_anim)` visualises simulations on small square domains ($360 ~\mu m \times 360 ~\mu m$). Cells are coloured according to local cell density (number of cells within a circular neighborhood of $10 ~\mu m$ radius, normalised by the circle area).
+* `Capsaspora1080_CellDensity(sim_folder, folder_save_video, save_anim)` visualises simulations on large square domains ($1080 ~\mu m \times 1080 ~\mu m$). Cells are coloured according to local cell density.
+
+Each method requires the following three arguments:
+
+* `sim_folder` – Absolute path to the folder containing simulation output files.
+* `folder_save_video` – Absolute path to the directory where the animation video will be saved.
+* `save_anim` – Boolean (`True` or `False`), specifying whether to save the animation as a `.avi` movie. If `save_anim = False`, the simulation will be visualised in ParaView but not saved.
+
+To run the script in ParaView:
+
+1. Open ParaView.
+2. Open the Python Shell (`View -> Python Shell`).
+3. Copy and paste the following commands, modifying paths as needed:
+
+```
+import sys  
+import importlib  
+
+# Provide the absolute path to the directory where CapsasporaAnimation.py is saved  
+sys.path.append("/absolute/path/to/CapsasporaAnimation/")  
+
+# Import the visualization script  
+import CapsasporaAnimation as cplot  
+
+# Set save_anim to False if you do not want to save the animation  
+save_anim = True  
+
+# Set the absolute path to the simulation output directory  
+sim_folder = "/absolute/path/to/simulation/output"  
+
+# Set the absolute path to the directory where the animation will be saved (e.g., Downloads folder)  
+folder_save_video = "/Users/your_username/Downloads"  
+
+# Reload the module in case of any changes  
+importlib.reload(cplot)  
+
+# Choose a visualisation method  
+cplot.Capsaspora360(sim_folder, folder_save_video, save_anim)  
+# cplot.Capsaspora1080(sim_folder, folder_save_video, save_anim)  
+# cplot.Capsaspora360_CellDensity(sim_folder, folder_save_video, save_anim)  
+# cplot.Capsaspora1080_CellDensity(sim_folder, folder_save_video, save_anim)  
+```
+You can modify any of the methods to adjust the appearance of the animation (e.g. changing font size, color schemes, etc.).
+
 ## 7. Simulation data from the paper
+
+The simulation data used to generate figures and supplementary movies for the manuscript have been uploaded to Figshare (approximately n GB) and can be downloaded from: [https://doi.org/figshare/number](https://doi.org/figshare/number).
+
+To reproduce the simulation animations, you can use the visualization scripts described in **Section 6**.
+
+## 8. Aggregate quantification using [DBSCAN](https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf)
+
+The `aggregate_quantification` directory in this repository contains two Python scripts designed to analyse the distribution of *Capsaspora* aggregates over time. The `GetClusterSizes_Folder.py` script processes system snapshots sequentially at each time point. It internally calls `GetClusterSizes_Frame.py` to compute cluster sizes based on area and the number of cells. The results are then saved in a `.txt` file in the following format:
+
+```
+[frame number]   \t [aggregate 1, cell #] \t [aggregate 1, area] \t [aggregate 2, cell #] \t [aggregate 2, area]
+[frame number+1] \t [aggregate 1, cell #] \t [aggregate 1, area] \t [aggregate 2, cell #] \t [aggregate 2, area] \t [aggregate 3, cell #] \t [aggregate 3, area]
+```
+The first value represents the frame number (typically, our simulations have 1050 frames). Each frame is followed by tab-separated values for the number of cells and area of each aggregate. The number of cell count-area pairs corresponds to the number of aggregates at that time point. This output can be used to derive statistics on aggregate area distributions, cell count per aggregate, and aggregate density, similar to the results presented in our manuscript.
+
+`GetClusterSizes_Folder.py` requires two arguments:
+* Absolute path of the folder containing simulation results.
+* Final frame number (default: 1050).
+  
+To ensure correct execution, certain parameters may need to be adjusted within the script:
+* `sim_end_time` – Final simulation time (e.g. 70 hours in our simulations).
+* `sim_dt` – Timestep used in the simulation. Required for correctly accessing individual simulation files, as frame numbers are not consecutive (output is saved every `plot_counter` simulation steps).
+* `L` – Domain size in $\mu m$.
+* `print_fig` – Boolean (`True` or `False`), determines whether to save figures with aggregate metrics for each frame.
+* `threshold` – Passed to DBSCAN ($\epsilon$), defines the distance threshold between cells for clustering. Cells within this threshold are considered part of the same aggregate.
+
+To execute the script in the background, use:
+```
+nohup python /absolute/path/to/simulation/folder 1050 >> output_AggregateQuantification.txt &  
+disown
+```
+Here, 1050 specifies the last frame number.
