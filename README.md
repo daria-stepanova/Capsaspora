@@ -10,7 +10,7 @@ All installation instructions and getting started guides for Chaste can be found
 
 ## 2. Change the source code to allow for periodic boundary conditions
 
-This repository has been implemented on a domain with periodic boundary conditions in x and y directions. Cell simulations in periodic doamin have been already included in the original Chaste distribution. However, at the moment of setting this repository, Chaste does not allow for the solution of PDEs on periodic domains. Simple instructions outlined below, can allow to change this and enable the PDE solver for periodic domain. Please follow the steps below before downloading the *Capsaspora* repository. 
+This repository has been implemented on a domain with periodic boundary conditions in x and y directions. Cell simulations in periodic domain have been already included in the original Chaste distribution. However, at the moment of setting this repository, Chaste does not allow for the solution of PDEs on periodic domains. Simple instructions outlined below, can allow to change this and enable the PDE solver for periodic domain. Please follow the steps below before downloading the *Capsaspora* repository. 
 
 ### Steps to apply periodic boundary conditions
 
@@ -18,7 +18,7 @@ This repository has been implemented on a domain with periodic boundary conditio
 
 Uncomment the following line in `AbstractAssemblerSolverHybrid.hpp`. The file is located at `/path/to/Chaste/src/pde/src/solver/`, closer to the end of the file (around line 148):
 ```
-mpBoundaryConditions->ApplyPeriodicBcsToLinearProblem(*pLinearSystem, true, true);
+mpBoundaryConditions->ApplyPeriodicBcsToLinearProblem(*pLinearSystem, true);
 ```
 **Step 2.** Modify `BoundaryConditionsContainerImplementation.hpp`
 
@@ -37,7 +37,7 @@ Additionally, comment out the following line to ensure other tests without perio
 ```
 // EXCEPT_IF_NOT(has_periodic_bcs);
 ```
-Finally, wrap everything below the commented line in an outer if condition:
+Finally, wrap everything below (until the end of the function) the commented line in an outer if condition:
 ```
 if (has_periodic_bcs) {
     // Existing code for applying periodic BCs
@@ -47,7 +47,7 @@ if (has_periodic_bcs) {
 
 If you want to verify that periodic boundary conditions work before applying them to the *Capsaspora* project, locate the test file `TestSimpleLinearEllipticSolver.hpp`.
 
-Find the test function `Test2dHeatEquationWithPeriodicBcs()`. If its name is `dontTest2dHeatEquationWithPeriodicBcs()`, rename it to ensure it runs.
+Find the test function `Test2dHeatEquationWithPeriodicBcs()`. If its name is `dont_Test2dHeatEquationWithPeriodicBcs()` or `dontTest2dHeatEquationWithPeriodicBcs()`, rename it to ensure it runs.
 
 After the following line in the test:
 ```
