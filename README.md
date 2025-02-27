@@ -66,7 +66,7 @@ The test output will be stored in the `PeriodicBcs` folder under `result.txt`. I
 
 *Note:* This test may fail in Docker, although the project with periodic BCs (PdeModifier) used in *Capsaspora* works fine. If an exception occurs, proceed to **Step 4** before troubleshooting further.
 
-4. Apply periodic BCs in your project
+**Step 4.** Apply periodic BCs in your project
 
 If the test works correctly, you can now use periodic boundary conditions in your Chaste projects. Boundary conditions are specified in PdeModifiers (e.g., `ParabolicBoxDomainPdeModifier`).
 
