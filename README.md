@@ -128,9 +128,9 @@ scripts/build_project.sh Exe_Capsaspora c
 ```
 This command compiles the project and creates an executable file, which can be found at:
 ```/path/to/Chaste/build/projects/Capsaspora/apps/Exe_Capsaspora```
-To run the executable in the background (so the terminal can be closed while the process continues), use the `nohup` command:
+The executable file `Exe_Capsaspora` can be typically found in `/path/to/Chaste/build/projects/Capsaspora/apps/` (or `/path/to/Chaste/lib/projects/Capsaspora/apps/` if you run Chaste via Docker). To run the executable in the background (so the terminal can be closed while the process continues), use the `nohup` command:
 ```
-nohup /path/to/Chaste/build/projects/Capsaspora/apps/Exe_Capsaspora >> /path/to/directory/to/redirect/shell/output/simulation.txt &  
+nohup /path/to/Capsaspora/executable/Exe_Capsaspora >> /path/to/directory/to/redirect/shell/output/simulation.txt &  
 disown
 ```
 The output files of the simulation will be saved in Chaste’s output directory, typically:
