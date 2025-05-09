@@ -278,7 +278,7 @@ Here, 1050 specifies the last frame number.
 ## 9. System requirements
 
 ### For model simulation:
-* [Chaste webpage](https://chaste.github.io/docs/) that can be installed directly on Ubuntu or via [Docker](https://docs.docker.com/get-started/get-docker/) on MacOS and Windows. For the detailed information, we refer to the official [Chaste webpage](https://chaste.github.io/docs/).
+* Chaste can be installed directly on Ubuntu or via [Docker](https://docs.docker.com/get-started/get-docker/) on MacOS and Windows. For the detailed information, we refer to the official [Chaste webpage](https://chaste.github.io/docs/).
 
 The present code has been tested on Ubuntu 20.04.6 with Chaste 2021.1 and the following dependencies:
 * PETSC 3.6.2
@@ -290,7 +290,7 @@ The present code has been tested on Ubuntu 20.04.6 with Chaste 2021.1 and the fo
 * VTK 9.2
 * Xerces 3.2.2
 
-The code also works on MacOS Sonoma 14.7.4 with Chaste release 2024.2 installed via Docker 4.7.1. (Docker ensures that no extra dependencies need to be installed separately).
+The code has also been tested on MacOS Sonoma 14.7.4 with Chaste release 2024.2 installed via Docker 4.7.1. (Docker ensures that no extra dependencies need to be installed separately).
 
 ### For visualisation of simulation results:
 * [ParaView](https://www.paraview.org/)
