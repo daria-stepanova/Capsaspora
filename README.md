@@ -6,6 +6,24 @@ For more details, please refer to our manuscript [Link to our manuscript](https:
 
 # Table of contents
 
+- [0. Overview of code functionality](#0-overview-of-code-functionality)
+  * [Summary of model components](#summary-of-model-components)
+  * [Output and analysis](#output-and-analysis)
+- [1. Installing Chaste](#1-installing-chaste)
+- [2. Change the source code to allow for periodic boundary conditions](#2-change-the-source-code-to-allow-for-periodic-boundary-conditions)
+  * [Steps to apply periodic boundary conditions](#steps-to-apply-periodic-boundary-conditions)
+- [3. Download *Capsaspora* repository as your local Chaste project](#3-download--capsaspora--repository-as-your-local-chaste-project)
+- [4. Project scripts](#4-project-scripts)
+- [5. How to run the model](#5-how-to-run-the-model)
+- [6. Visualisation of the results in Paraview](#6-visualisation-of-the-results-in-paraview)
+- [7. Simulation data from the paper](#7-simulation-data-from-the-paper)
+- [8. Aggregate quantification using [DBSCAN](https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf)](#8-aggregate-quantification-using--dbscan--https---filebiolabsi-papers-1996-dbscan-kddpdf-)
+- [9. System requirements](#9-system-requirements)
+  * [For model simulation:](#for-model-simulation-)
+  * [For visualisation of simulation results:](#for-visualisation-of-simulation-results-)
+- [10. License](#10-license)
+
+
 [Overview of code functionality](#0-overview-of-code-functionality)
 
 [Installing Chaste](#1-installing-chaste)
