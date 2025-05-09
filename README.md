@@ -16,7 +16,7 @@ For more details, please refer to our manuscript [Link to our manuscript](https:
 - [5. How to run the model](#5-how-to-run-the-model)
 - [6. Visualisation of the results in Paraview](#6-visualisation-of-the-results-in-paraview)
 - [7. Simulation data from the paper](#7-simulation-data-from-the-paper)
-- [8. Aggregate quantification using [DBSCAN](https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf)](#8-aggregate-quantification-using-[dbscan](https://filebiolabsi-papers-1996-dbscan-kddpdf)
+- [8. Aggregate quantification using DBSCAN](#8-aggregate-quantification-using-dbscan)
 - [9. System requirements](#9-system-requirements)
 - [10. License](#10-license)
 
@@ -263,7 +263,9 @@ The simulation data used to generate figures and supplementary movies for the ma
 
 To reproduce the simulation animations, you can use the visualisation scripts described in **Section 6**.
 
-## 8. Aggregate quantification using [DBSCAN](https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf)
+## 8. Aggregate quantification using DBSCAN
+
+[DBSCAN](https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf) can be used to extract relevant biological metrics related to aggregate evolution such as aggregate size and density distributions. 
 
 The `aggregate_quantification` directory in this repository contains two Python scripts designed to analyse the distribution of *Capsaspora* aggregates over time. The `GetClusterSizes_Folder.py` script processes system snapshots sequentially at each time point. It internally calls `GetClusterSizes_Frame.py` to compute cluster sizes based on area and the number of cells. The results are then saved in a `.txt` file in the following format:
 
