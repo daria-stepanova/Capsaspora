@@ -25,15 +25,18 @@ The following core components constitute the model:
   * Local consumption by cells based on their metabolic activity.
 
 * **Coupling between cell and chemical field**
+
   Each cell:
 
   * Senses the local FBS concentration to modulate its motility and adhesion parameters.
   * Consumes FBS locally, acting as a sink term in the PDE.
 
 * **Domain and boundary conditions**
+
   The model is simulated on a periodic 2D domain (torus topology), enabling continuous cell migration across boundaries and consistent PDE behaviour. This required a modification of the default Chaste PDE solvers to support periodic boundary conditions.
 
 * **Main simulation control**
+
   The entry point to the simulation is the `CapsasporaSimulation.hpp` file, which:
 
   * Defines all model parameters,
@@ -42,6 +45,7 @@ The following core components constitute the model:
   * Runs the simulation loop.
 
 ### Output and analysis
+
 The simulation generates cell position data and FBS field values over time, which can be visualised using provided ParaView scripts (**Section 6**) or post-processed to compute biological metrics such as aggregate size distributions using DBSCAN-based analysis tools (**Section 8**).
 
 ## 1. Installing Chaste
