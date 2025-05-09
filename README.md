@@ -4,6 +4,13 @@ This repository contains the implementation of the *Capsaspora* model in Chaste.
 
 For more details, please refer to our manuscript [Link to our manuscript](https://doi.org/10.1101/).
 
+# Table of contents
+
+[Overview of code functionality](#overview-of-code-functionality)
+[Installing Chaste](#installing-chaste)
+[Periodic boundary conditions](#change-the-source-code-to-allow-for-periodic-boundary-conditions)
+[Project scripts](#project-scripts)
+
 ## 0. Overview of code functionality
 
 ### Summary of model components
