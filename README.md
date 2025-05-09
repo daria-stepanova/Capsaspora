@@ -294,7 +294,6 @@ The code also works on MacOS Sonoma 14.7.4 with Chaste release 2024.2 installed 
 
 ### For visualisation of simulation results:
 * [ParaView](https://www.paraview.org/)
-All installation instructions and getting started guides for Chaste can be found on the official [Chaste webpage](https://chaste.github.io/docs/). Chaste can be installed directly on Ubuntu Linux, while Windows and macOS users can set it up via [Docker](https://docs.docker.com/get-started/get-docker/) as an alternative.
 
 The visualisation scripts (see **Section 6**) have been tested with ParaView 5.10 (for Ubuntu 20.04.6 and MacOS Sonoma 14.7.4) and Python 3.11.4. Python packages required for the visualisation scripts include:
 * paraview.simple
