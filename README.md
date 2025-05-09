@@ -6,13 +6,13 @@ For more details, please refer to our manuscript [Link to our manuscript](https:
 
 # Table of contents
 
-[Overview of code functionality](#0.-overview-of-code-functionality)
+[Overview of code functionality](#0-overview-of-code-functionality)
 
-[Installing Chaste](#1.-installing-chaste)
+[Installing Chaste](#1-installing-chaste)
 
-[Periodic boundary conditions](#change-the-source-code-to-allow-for-periodic-boundary-conditions)
+[Periodic boundary conditions](#2-change-the-source-code-to-allow-for-periodic-boundary-conditions)
 
-[Project scripts](#project-scripts)
+[Project scripts](#3-project-scripts)
 
 ## 0. Overview of code functionality
 
