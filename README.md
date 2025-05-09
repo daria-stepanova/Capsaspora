@@ -4,9 +4,49 @@ This repository contains the implementation of the *Capsaspora* model in Chaste.
 
 For more details, please refer to our manuscript [Link to our manuscript](https://doi.org/10.1101/).
 
+## 0. Overview of code functionality
+
+### Summary of model components
+
+The following core components constitute the model:
+
+* **Cell-based Capsaspora model (agent-based)**
+  Cells are represented as circular agents using a centre-based (off-lattice) approach. Each cell moves according to forces from:
+
+  * FBS-dependent cell-cell interactions (adhesive and repulsive forces),
+  * Random motility.
+
+* **Chemical field (continuum model)**
+  The extracellular concentration of FBS is defined on a continuous 2D spatial domain and evolves over time due to:
+
+  * Diffusion,
+  * Local consumption by cells based on their metabolic activity.
+
+* **Coupling between cell and chemical field**
+  Each cell:
+
+  * Senses the local FBS concentration to modulate its motility and adhesion parameters.
+  * Consumes FBS locally, acting as a sink term in the PDE.
+
+* **Domain and boundary conditions**
+  The model is simulated on a periodic 2D domain (torus topology), enabling continuous cell migration across boundaries and consistent PDE behaviour. This required a modification of the default Chaste PDE solvers to support periodic boundary conditions.
+
+* **Main simulation control**
+  The entry point to the simulation is the `CapsasporaSimulation.hpp` file, which:
+
+  * Defines all model parameters,
+  * Instantiates the simulation domain, cell population, PDE solver, and modifier classes,
+  * Sets simulation time and output folder,
+  * Runs the simulation loop.
+
+### Output and analysis
+The simulation generates cell position data and FBS field values over time, which can be visualised using provided ParaView scripts (**Section 6**) or post-processed to compute biological metrics such as aggregate size distributions using DBSCAN-based analysis tools (**Section 8**).
+
 ## 1. Installing Chaste
 
-All installation instructions and getting started guides for Chaste can be found on the official [Chaste webpage](https://chaste.github.io/docs/). Chaste can be installed directly on Ubuntu Linux, while Windows and macOS users can set it up via Docker as an alternative.
+All installation instructions and getting started guides for Chaste can be found on the official [Chaste webpage](https://chaste.github.io/docs/). Chaste can be installed directly on Ubuntu Linux, while Windows and macOS users can set it up via [Docker](https://docs.docker.com/get-started/get-docker/) as an alternative.
+
+Chaste installation time can vary depending on the operating system. On Ubuntu, it can take up to several hours to install Chaste together with all the dependencies (see [Chaste webpage](https://chaste.github.io/docs/)). For MacOs, installation via Docker can take around 20-60 minutes. 
 
 ## 2. Change the source code to allow for periodic boundary conditions
 
@@ -140,6 +180,8 @@ The output files of the simulation will be saved in Chaste’s output directory,
 The folder name for all output files will be displayed when building the project with `scripts/build_project.sh Exe_Capsaspora`. 
 The output directory for each simulation (subfolder in the main output directory) is defined in `CapsasporaSimulation.hpp` and can be modified before building the project.
 
+Typical run time for simulations of *Capsaspora* evolution on $360 ~\mu m \times 360 ~\mu m$ domain during 70 hours can take from 3 to 7 days. Larger domain simulations ($1080 ~\mu m \times 1080 ~\mu m$) over the same time period can take up to several weeks. To test the software, we recommend to run trial simulations on a smaller domain for a shorter time span. This can be changed on `line 62` and `line 74`, respectively, of the sourse file `CapsasporaSimulation.hpp` located in `src` folder. In addition, this file contains more detailled instructions regarding the setup of numerical simulations. 
+
 ## 6. Visualisation of the results in Paraview
 
 Simulation results generated with Chaste can be visualized using [ParaView](https://www.paraview.org/), an open-source software for post-processing and visualisation. ParaView allows users to automate visualisation steps using Python scripts, which can be executed within ParaView’s Python Shell.
@@ -197,7 +239,7 @@ You can modify any of the methods to adjust the appearance of the animation (e.g
 
 The simulation data used to generate figures and supplementary movies for the manuscript have been uploaded to Figshare (approximately n GB) and can be downloaded from: [https://doi.org/figshare/number](https://doi.org/figshare/number).
 
-To reproduce the simulation animations, you can use the visualization scripts described in **Section 6**.
+To reproduce the simulation animations, you can use the visualisation scripts described in **Section 6**.
 
 ## 8. Aggregate quantification using [DBSCAN](https://file.biolab.si/papers/1996-DBSCAN-KDD.pdf)
 
@@ -226,3 +268,37 @@ nohup python /absolute/path/to/simulation/folder 1050 >> output_AggregateQuantif
 disown
 ```
 Here, 1050 specifies the last frame number.
+
+## 9. System requirements
+
+### For model simulation:
+* [Chaste webpage](https://chaste.github.io/docs/) that can be installed directly on Ubuntu or via [Docker](https://docs.docker.com/get-started/get-docker/) on MacOS and Windows. For the detailed information, we refer to the official [Chaste webpage](https://chaste.github.io/docs/).
+
+The present code has been tested on Ubuntu 20.04.6 with Chaste 2021.1 and the following dependencies:
+* PETSC 3.6.2
+* Boost 1.71.0
+* HDF5 1.8.16
+* Parmetis 4.0.3
+* XSD 4.0.0
+* SUNDIALS 2.5.0
+* VTK 9.2
+* Xerces 3.2.2
+
+The code also works on MacOS Sonoma 14.7.4 with Chaste release 2024.2 installed via Docker 4.7.1. (Docker ensures that no extra dependencies need to be installed separately).
+
+### For visualisation of simulation results:
+* [ParaView](https://www.paraview.org/)
+All installation instructions and getting started guides for Chaste can be found on the official [Chaste webpage](https://chaste.github.io/docs/). Chaste can be installed directly on Ubuntu Linux, while Windows and macOS users can set it up via [Docker](https://docs.docker.com/get-started/get-docker/) as an alternative.
+
+The visualisation scripts (see **Section 6**) have been tested with ParaView 5.10 (for Ubuntu 20.04.6 and MacOS Sonoma 14.7.4) and Python 3.11.4. Python packages required for the visualisation scripts include:
+* paraview.simple
+* glob
+* re
+* sys
+* importlib
+
+Neither simulation nor visualisation of the simulation results require any non-standard hardware. 
+
+## 10. License
+
+This code is licensed under the Apache 2.0 License. However, commercial use is not permitted without written permission from the authors.
