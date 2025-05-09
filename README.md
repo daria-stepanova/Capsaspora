@@ -10,7 +10,7 @@ For more details, please refer to our manuscript [Link to our manuscript](https:
 
 The following core components constitute the model:
 
-* **Cell-based Capsaspora model (agent-based)**
+* **Cell-based *Capsaspora* model (agent-based)**
   Cells are represented as circular agents using a centre-based (off-lattice) approach. Each cell moves according to forces from:
 
   * FBS-dependent cell-cell interactions (adhesive and repulsive forces),
