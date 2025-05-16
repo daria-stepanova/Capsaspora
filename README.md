@@ -2,7 +2,7 @@
 
 This repository contains the implementation of the *Capsaspora* model in Chaste. The model follows a centre-based approach, where cells are represented as circles, and their positions evolve based on random movement and interactions with neighbouring cells. Cell behaviour is influenced by the surrounding chemical field of Fetal Bovine Serum (FBS), which is governed by a partial differential equation (PDE). FBS plays a key role in regulating cell motility and cell-cell adhesion while being gradually consumed by *Capsaspora* cells through their metabolic activity.
 
-For more details, please refer to our manuscript [Link to our manuscript](https://doi.org/10.1101/).
+For more details, please refer to our manuscript [A novel model system to address the relevance of aggregation in animal origins](https://doi.org/10.1101/2025.05.14.653760).
 
 # Table of contents
 
